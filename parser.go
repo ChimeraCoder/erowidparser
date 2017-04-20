@@ -16,13 +16,13 @@ var rnd = rand.New(rand.NewSource(time.Now().Unix()))
 
 var rel_path = filepath.Join("e", "http80", "www.erowid.org", "experiences")
 
-var root string
+var Root string
 
 var experienceRegexp = regexp.MustCompile(`exp\.phpquery=ID=\d*.html`)
 
 func listExperiences() ([]os.FileInfo, error) {
 	var experiences []os.FileInfo
-	files, err := ioutil.ReadDir(filepath.Join(root, rel_path))
+	files, err := ioutil.ReadDir(filepath.Join(Root, rel_path))
 	if err != nil {
 		return nil, err
 	}
@@ -34,11 +34,11 @@ func listExperiences() ([]os.FileInfo, error) {
 	return experiences, err
 }
 
-func parseExperience(filename string) (string, error) {
+func ParseExperience(filename string) (string, error) {
 	const startPrefix = `<!--   Start Body   -->`
 	const endSuffix = `Exp Year`
 
-	f, err := os.Open(filepath.Join(root, rel_path, filename))
+	f, err := os.Open(filepath.Join(Root, rel_path, filename))
 	if err != nil {
 		return "", err
 	}
@@ -73,7 +73,7 @@ func parseExperience(filename string) (string, error) {
 	return doc.Text(), nil
 }
 
-func randExperiences() ([]os.FileInfo, error) {
+func RandExperiences() ([]os.FileInfo, error) {
 	experiences, err := listExperiences()
 	if err != nil {
 		return nil, err
