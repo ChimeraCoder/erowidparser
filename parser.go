@@ -73,6 +73,8 @@ func ParseExperience(filename string) (string, error) {
 	return doc.Text(), nil
 }
 
+// RandExperiences returns a random permutation
+// of files representing the experiences
 func RandExperiences() ([]os.FileInfo, error) {
 	experiences, err := listExperiences()
 	if err != nil {
